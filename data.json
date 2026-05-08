@@ -1,0 +1,165 @@
+{
+  "site": {
+    "name": "ParityRx",
+    "tagline": "We Find the Money Your PBM and Broker Aren't Finding",
+    "email": "hpratap@parityrx.com",
+    "location": "Minneapolis, MN",
+    "formspree_id": "xykowelv"
+  },
+
+  "hero": {
+    "kicker": "For self-insured employers and Taft-Hartley funds",
+    "headline_line1": "Six-figure savings are hiding",
+    "headline_line2": "in your benefits spend.",
+    "headline_em": "We find them.",
+    "subtext": "Your PBM and broker are not finding this money because they are not paid to. We are built differently. The only way for us to win is if we find you savings.",
+    "cta": "Request a free preliminary screen"
+  },
+
+  "skin_strip": "The only way for us to win is if we find you savings.",
+
+  "law_alert": {
+    "tag": "New Federal Law: February 3, 2026",
+    "headline": "Congress just changed the rules on PBMs. Is your plan ready?",
+    "body_1": "The Consolidated Appropriations Act of 2026, signed into law on February 3, 2026, now requires PBMs to disclose rebates, spread pricing arrangements, and compensation to self-insured employer plans for the first time.",
+    "body_2": "Your plan is about to receive data it has never seen before. Most HR teams and brokers will not know what to do with it. We do. ParityRx translates that data into plain English and into dollars back in your plan."
+  },
+
+  "problem": {
+    "label": "The problem",
+    "headline": "Three reasons your plan keeps overpaying",
+    "subtext": "The savings gap is not a mystery. It is a conflict of interest built into how your PBM and broker make money.",
+    "cards": [
+      {
+        "num": "01",
+        "title": "PBM rebate conflicts",
+        "body": "Your PBM earns manufacturer rebates to keep brand drugs on formulary. A biosimilar switch eliminates that revenue. They have no incentive to surface the opportunity, and until now no law required them to show their hand."
+      },
+      {
+        "num": "02",
+        "title": "Broker knowledge gaps",
+        "body": "Most benefits brokers lack the clinical and analytical depth to identify biosimilar switching or site of care savings. Their commission also goes up when plan costs go up."
+      },
+      {
+        "num": "03",
+        "title": "Nobody connecting the dots",
+        "body": "Claims data, FDA approval status, interchangeability classifications, site of care billing, and PBM contract terms all need to work together. No one is doing that analysis independently for mid-size plans."
+      }
+    ]
+  },
+
+  "services": {
+    "label": "What we analyze",
+    "headline": "Benefits cost analytics, starting with biosimilars",
+    "subtext": "Biosimilar switching is our flagship service and typically our biggest find. But it is one of several places we look for money your plan is leaving on the table.",
+    "cards": [
+      {
+        "badge": "Flagship service",
+        "badge_type": "main",
+        "title": "Biosimilar Switching",
+        "body": "We map your specialty drug claims against every FDA-approved biosimilar and interchangeable alternative. We identify which switches are clinically supported, financially significant, and ready to act on at your next renewal."
+      },
+      {
+        "badge": "Also available",
+        "badge_type": "also",
+        "title": "Site of Care Optimization",
+        "body": "The same drug, same dose, same patient administered at a hospital outpatient facility can cost three to four times more than an independent infusion center. We identify these billing gaps in your medical claims data."
+      },
+      {
+        "badge": "Also available",
+        "badge_type": "also",
+        "title": "PBM Transparency Analysis",
+        "body": "With the CAA 2026 now law, your PBM must disclose rebates, spread pricing, and compensation. We translate that disclosure into plain English and tell you exactly what to push back on at your next PBM review."
+      }
+    ]
+  },
+
+  "drugs": {
+    "label": "A few examples from our drug database",
+    "headline": "Brand drugs with FDA-approved biosimilar alternatives",
+    "subtext": "These are a sample of the drugs we track. Pricing is sourced from FDA Purple Book, CMS NADAC, and Medicare ASP files. Individual plan results will vary.",
+    "footnote": "Data sourced from FDA Purple Book, CMS NADAC database, and Medicare ASP payment files. List prices shown. Net plan cost will vary based on PBM contract, rebates, and plan design. Individual plan results will vary.",
+    "last_updated": "May 2025",
+    "items": [
+      {
+        "brand": "Stelara (ustekinumab)",
+        "brand_cost": 181000,
+        "biosimilar": "Wezlana",
+        "biosimilar_cost": 30000,
+        "status": "Interchangeable"
+      },
+      {
+        "brand": "Humira (adalimumab)",
+        "brand_cost": 85000,
+        "biosimilar": "Hadlima",
+        "biosimilar_cost": 16000,
+        "status": "Interchangeable"
+      },
+      {
+        "brand": "Enbrel (etanercept)",
+        "brand_cost": 78000,
+        "biosimilar": "Erelzi",
+        "biosimilar_cost": 18000,
+        "status": "Biosimilar"
+      },
+      {
+        "brand": "Tysabri (natalizumab)",
+        "brand_cost": 95000,
+        "biosimilar": "Tyruko",
+        "biosimilar_cost": 28000,
+        "status": "Biosimilar"
+      },
+      {
+        "brand": "Prolia / Xgeva (denosumab)",
+        "brand_cost": 26000,
+        "biosimilar": "Jubbonti",
+        "biosimilar_cost": 6200,
+        "status": "Interchangeable"
+      }
+    ]
+  },
+
+  "process": {
+    "label": "How it works",
+    "headline": "Four phases. Zero risk beyond the audit fee.",
+    "subtext": "We do the analysis. You make the decisions. Savings are documented at 12 months. That is when our performance fee is calculated.",
+    "steps": [
+      {
+        "num": "01",
+        "free": true,
+        "title": "Preliminary Screen",
+        "body": "Provide aggregate de-identified specialty drug claims. We confirm whether a material savings opportunity exists within 48 hours. No fee, no obligation."
+      },
+      {
+        "num": "02",
+        "free": false,
+        "title": "Audit and Findings",
+        "body": "Full analysis delivered in 14 business days. Includes biosimilar mapping, site of care review, and PBM transparency flags. Every clinical recommendation validated by a licensed PharmD. Flat fee: $2,500 to $5,000."
+      },
+      {
+        "num": "03",
+        "free": false,
+        "title": "Implementation Roadmap",
+        "body": "Benefit design language, PBM change request package, and member communication templates ready for your next plan renewal. You and your broker execute. We hand you the playbook."
+      },
+      {
+        "num": "04",
+        "free": false,
+        "title": "Savings Documented",
+        "body": "At 12 months post-implementation we compare claims to baseline and document actual savings. Our performance fee of 15 to 20 percent is invoiced based on real documented results only."
+      }
+    ]
+  },
+
+  "skin_full": {
+    "headline": "The only way for us to win is if we find you savings.",
+    "body": "Our revenue model is built around your results. The preliminary screen is free. The audit fee is flat and modest. The performance fee is calculated at 12 months based on actual documented savings. If we don't find savings, we don't get paid."
+  },
+
+  "contact": {
+    "label": "Get started",
+    "headline": "Request a free preliminary screen",
+    "subtext": "Tell us about your plan. We will confirm whether a material savings opportunity exists at no cost and no commitment. Most screens are completed within 48 hours.",
+    "serving": "Serving self-insured employers and Taft-Hartley funds nationwide"
+  }
+}

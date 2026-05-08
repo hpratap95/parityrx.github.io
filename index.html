@@ -1,833 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ParityRx — Biosimilar Cost Optimization</title>
-<meta name="description" content="ParityRx helps self-insured employers and Taft-Hartley funds capture six-figure specialty drug savings through biosimilar optimization.">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --green: #1D9E75;
-    --green-light: #5DCAA5;
-    --green-dim: #0F6E56;
-    --bg: #0e0f0e;
-    --bg-2: #161817;
-    --bg-3: #1e201f;
-    --border: rgba(255,255,255,0.08);
-    --text: #f0f0ed;
-    --text-muted: #888f8b;
-    --red: #E24B4A;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    padding: 20px 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(14,15,14,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    color: var(--text);
-    text-decoration: none;
-    letter-spacing: -0.3px;
-  }
-
-  .logo span { color: var(--green); }
-
-  nav a.cta-nav {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--green);
-    text-decoration: none;
-    border: 1px solid var(--green-dim);
-    padding: 8px 20px;
-    border-radius: 4px;
-    transition: all 0.2s;
-    letter-spacing: 0.3px;
-  }
-
-  nav a.cta-nav:hover {
-    background: var(--green-dim);
-    color: #fff;
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 120px 48px 80px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -200px;
-    right: -200px;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(29,158,117,0.12) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -100px;
-    left: -100px;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(29,158,117,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .hero-inner {
-    max-width: 900px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-label {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--green);
-    border: 1px solid var(--green-dim);
-    padding: 6px 14px;
-    border-radius: 2px;
-    margin-bottom: 32px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease 0.1s forwards;
-  }
-
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(42px, 6vw, 76px);
-    line-height: 1.05;
-    letter-spacing: -1.5px;
-    color: var(--text);
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease 0.2s forwards;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--green-light);
-  }
-
-  .hero-sub {
-    font-size: 18px;
-    color: var(--text-muted);
-    max-width: 580px;
-    line-height: 1.65;
-    margin-bottom: 48px;
-    font-weight: 300;
-    opacity: 0;
-    animation: fadeUp 0.6s ease 0.3s forwards;
-  }
-
-  .hero-stat-row {
-    display: flex;
-    gap: 48px;
-    margin-bottom: 48px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease 0.4s forwards;
-  }
-
-  .hero-stat { border-left: 2px solid var(--green-dim); padding-left: 20px; }
-
-  .hero-stat .num {
-    font-family: 'DM Serif Display', serif;
-    font-size: 36px;
-    color: var(--text);
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-
-  .hero-stat .num.red { color: var(--red); }
-  .hero-stat .num.green { color: var(--green-light); }
-
-  .hero-stat .label {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 4px;
-    letter-spacing: 0.3px;
-  }
-
-  .hero-cta {
-    display: inline-block;
-    background: var(--green);
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 16px 36px;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: all 0.2s;
-    letter-spacing: 0.3px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease 0.5s forwards;
-  }
-
-  .hero-cta:hover { background: var(--green-dim); transform: translateY(-1px); }
-
-  /* SECTIONS */
-  section {
-    padding: 100px 48px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 16px;
-  }
-
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(28px, 4vw, 44px);
-    line-height: 1.1;
-    letter-spacing: -0.8px;
-    margin-bottom: 20px;
-    color: var(--text);
-  }
-
-  .section-sub {
-    font-size: 16px;
-    color: var(--text-muted);
-    max-width: 560px;
-    line-height: 1.65;
-    font-weight: 300;
-    margin-bottom: 56px;
-  }
-
-  /* DIVIDER */
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: var(--border);
-    margin: 0 auto;
-  }
-
-  /* PROBLEM */
-  .problem-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .problem-card {
-    background: var(--bg-2);
-    padding: 32px 28px;
-    transition: background 0.2s;
-  }
-
-  .problem-card:hover { background: var(--bg-3); }
-
-  .problem-num {
-    font-family: 'DM Serif Display', serif;
-    font-size: 48px;
-    color: var(--bg-3);
-    line-height: 1;
-    margin-bottom: 16px;
-    -webkit-text-stroke: 1px var(--border);
-  }
-
-  .problem-card h3 {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 10px;
-    line-height: 1.3;
-  }
-
-  .problem-card p {
-    font-size: 13.5px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    font-weight: 300;
-  }
-
-  /* DRUG TABLE */
-  .drug-section { background: var(--bg-2); margin: 0; max-width: 100%; padding: 100px 48px; }
-  .drug-inner { max-width: 1100px; margin: 0 auto; }
-
-  .drug-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 0;
-  }
-
-  .drug-table thead tr {
-    border-bottom: 1px solid var(--border);
-  }
-
-  .drug-table th {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    padding: 14px 20px;
-    text-align: left;
-  }
-
-  .drug-table td {
-    padding: 18px 20px;
-    font-size: 14px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text);
-    vertical-align: middle;
-  }
-
-  .drug-table tr:last-child td { border-bottom: none; }
-
-  .drug-table tr:hover td { background: var(--bg-3); }
-
-  .price-brand { color: #f08080; font-weight: 500; }
-  .price-biosim { color: var(--green-light); font-weight: 500; }
-
-  .savings-pill {
-    display: inline-block;
-    background: rgba(29,158,117,0.12);
-    color: var(--green-light);
-    font-size: 12px;
-    font-weight: 500;
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid rgba(29,158,117,0.2);
-    white-space: nowrap;
-  }
-
-  .status-pill {
-    display: inline-block;
-    background: rgba(255,255,255,0.05);
-    color: var(--text-muted);
-    font-size: 12px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-  }
-
-  /* PROCESS */
-  .process-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-  }
-
-  .process-card {
-    position: relative;
-    padding: 28px 24px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--bg-2);
-    transition: border-color 0.2s;
-  }
-
-  .process-card:hover { border-color: var(--green-dim); }
-
-  .process-card::after {
-    content: '→';
-    position: absolute;
-    right: -16px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--border);
-    font-size: 18px;
-    z-index: 1;
-  }
-
-  .process-card:last-child::after { display: none; }
-
-  .step-num {
-    font-family: 'DM Serif Display', serif;
-    font-size: 42px;
-    color: var(--bg-3);
-    -webkit-text-stroke: 1px rgba(255,255,255,0.1);
-    line-height: 1;
-    margin-bottom: 16px;
-  }
-
-  .process-card h3 {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-
-  .process-card p {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.55;
-    font-weight: 300;
-  }
-
-  /* CONTACT */
-  .contact-section {
-    background: var(--bg-2);
-    margin: 0;
-    max-width: 100%;
-    padding: 100px 48px;
-    border-top: 1px solid var(--border);
-  }
-
-  .contact-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
-
-  .contact-left h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(28px, 3.5vw, 42px);
-    line-height: 1.1;
-    letter-spacing: -0.8px;
-    margin-bottom: 20px;
-  }
-
-  .contact-left p {
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.65;
-    font-weight: 300;
-    margin-bottom: 32px;
-  }
-
-  .contact-detail {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-
-  .contact-detail .dot {
-    width: 6px;
-    height: 6px;
-    background: var(--green);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .contact-detail span {
-    font-size: 14px;
-    color: var(--text-muted);
-  }
-
-  .contact-detail a {
-    font-size: 14px;
-    color: var(--green-light);
-    text-decoration: none;
-  }
-
-  .contact-detail a:hover { text-decoration: underline; }
-
-  /* FORM */
-  .contact-form { display: flex; flex-direction: column; gap: 16px; }
-
-  .form-group { display: flex; flex-direction: column; gap: 6px; }
-
-  .form-group label {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    background: var(--bg-3);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 12px 16px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--text);
-    outline: none;
-    transition: border-color 0.2s;
-    width: 100%;
-  }
-
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    border-color: var(--green-dim);
-  }
-
-  .form-group select option { background: var(--bg-3); }
-
-  .form-group textarea { resize: vertical; min-height: 100px; }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-  .submit-btn {
-    background: var(--green);
-    color: #fff;
-    border: none;
-    padding: 14px 32px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-    align-self: flex-start;
-    letter-spacing: 0.3px;
-  }
-
-  .submit-btn:hover { background: var(--green-dim); transform: translateY(-1px); }
-
-  /* FOOTER */
-  footer {
-    padding: 32px 48px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  footer .logo-sm {
-    font-family: 'DM Serif Display', serif;
-    font-size: 16px;
-    color: var(--text-muted);
-  }
-
-  footer .logo-sm span { color: var(--green); }
-
-  footer p {
-    font-size: 12px;
-    color: var(--text-muted);
-    max-width: 480px;
-    text-align: right;
-    line-height: 1.5;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-in {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    nav { padding: 16px 24px; }
-    .hero { padding: 100px 24px 60px; }
-    section { padding: 70px 24px; }
-    .drug-section, .contact-section { padding: 70px 24px; }
-    .hero-stat-row { gap: 24px; flex-wrap: wrap; }
-    .problem-grid { grid-template-columns: 1fr; }
-    .process-grid { grid-template-columns: 1fr 1fr; }
-    .process-card::after { display: none; }
-    .contact-inner { grid-template-columns: 1fr; gap: 48px; }
-    .form-row { grid-template-columns: 1fr; }
-    .drug-table { font-size: 13px; }
-    .drug-table th, .drug-table td { padding: 12px 12px; }
-    footer { flex-direction: column; gap: 16px; text-align: center; }
-    footer p { text-align: center; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <title>ParityRx</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<nav>
-  <a href="#" class="logo">Parity<span>Rx</span></a>
-  <a href="#contact" class="cta-nav">Get a free screen</a>
-</nav>
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo"></a>
+    <a href="#contact" class="nav-cta">Get a free screen</a>
+  </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-inner">
-    <div class="hero-label">Biosimilar Cost Optimization</div>
-    <h1>Your plan is paying too much.<br><em>We find exactly how much.</em></h1>
-    <p class="hero-sub">Self-insured employers and Taft-Hartley funds are losing six figures per employee on brand biologics. FDA-approved biosimilar alternatives exist — and your PBM has no incentive to tell you.</p>
-    <div class="hero-stat-row">
-      <div class="hero-stat">
-        <div class="num red">$181K</div>
-        <div class="label">Stelara cost per member / year</div>
-      </div>
-      <div class="hero-stat">
-        <div class="num green">$30K</div>
-        <div class="label">FDA biosimilar cost per member / year</div>
-      </div>
-      <div class="hero-stat">
-        <div class="num">$151K</div>
-        <div class="label">Potential savings — per person</div>
-      </div>
-    </div>
-    <a href="#contact" class="hero-cta">Request a free preliminary screen →</a>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- PROBLEM -->
-<section>
-  <div class="section-label fade-in">The problem</div>
-  <h2 class="section-title fade-in">Three reasons your plan<br>keeps overpaying</h2>
-  <p class="section-sub fade-in">The biosimilar savings gap isn't a mystery. It's a conflict of interest — built into how your PBM makes money.</p>
-
-  <div class="problem-grid fade-in">
-    <div class="problem-card">
-      <div class="problem-num">01</div>
-      <h3>PBM rebate conflicts</h3>
-      <p>Your PBM earns manufacturer rebates to keep brand drugs on formulary. A biosimilar switch eliminates that revenue. They have no incentive to surface the opportunity.</p>
-    </div>
-    <div class="problem-card">
-      <div class="problem-num">02</div>
-      <h3>Broker knowledge gaps</h3>
-      <p>Most benefits brokers lack the clinical knowledge to identify biosimilar switching opportunities — and their commission goes up when plan costs go up.</p>
-    </div>
-    <div class="problem-card">
-      <div class="problem-num">03</div>
-      <h3>Nobody connecting the dots</h3>
-      <p>Claims data, FDA approval status, interchangeability classifications, and benefit design changes all need to work together. No one is doing that analysis independently.</p>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-kicker"></div>
+      <h1 class="hero-headline"></h1>
+      <p class="hero-sub"></p>
+      <div class="hero-stats"></div>
+      <a href="#contact" class="hero-cta"></a>
     </div>
   </div>
-</section>
 
-<div class="divider"></div>
-
-<!-- DRUG TABLE -->
-<div class="drug-section">
-  <div class="drug-inner">
-    <div class="section-label fade-in">Current savings opportunities</div>
-    <h2 class="section-title fade-in">Selected FDA-approved biosimilar alternatives</h2>
-    <p class="section-sub fade-in">Pricing sourced from FDA Purple Book, CMS NADAC database, and Medicare ASP payment files. Individual plan results will vary.</p>
-
-    <table class="drug-table fade-in">
-      <thead>
-        <tr>
-          <th>Brand drug</th>
-          <th>Annual cost / member</th>
-          <th>FDA biosimilar</th>
-          <th>Annual cost / member</th>
-          <th>Potential savings</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Stelara (ustekinumab)</td>
-          <td class="price-brand">$181,000</td>
-          <td>Wezlana</td>
-          <td class="price-biosim">$30,000</td>
-          <td><span class="savings-pill">Save $151,000</span></td>
-          <td><span class="savings-pill">Interchangeable</span></td>
-        </tr>
-        <tr>
-          <td>Humira (adalimumab)</td>
-          <td class="price-brand">$85,000</td>
-          <td>Hadlima</td>
-          <td class="price-biosim">$16,000</td>
-          <td><span class="savings-pill">Save $69,000</span></td>
-          <td><span class="savings-pill">Interchangeable</span></td>
-        </tr>
-        <tr>
-          <td>Enbrel (etanercept)</td>
-          <td class="price-brand">$78,000</td>
-          <td>Erelzi</td>
-          <td class="price-biosim">$18,000</td>
-          <td><span class="savings-pill">Save $60,000</span></td>
-          <td><span class="status-pill">Biosimilar-only</span></td>
-        </tr>
-        <tr>
-          <td>Tysabri (natalizumab)</td>
-          <td class="price-brand">$95,000</td>
-          <td>Tyruko</td>
-          <td class="price-biosim">$28,000</td>
-          <td><span class="savings-pill">Save $67,000</span></td>
-          <td><span class="status-pill">Biosimilar-only</span></td>
-        </tr>
-        <tr>
-          <td>Prolia / Xgeva (denosumab)</td>
-          <td class="price-brand">$26,000</td>
-          <td>Jubbonti</td>
-          <td class="price-biosim">$6,200</td>
-          <td><span class="savings-pill">Save $19,800</span></td>
-          <td><span class="savings-pill">Interchangeable</span></td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- SKIN STRIP -->
+  <div class="skin-strip">
+    <strong></strong>
+    &nbsp; Zero savings found? Zero performance fee.
   </div>
-</div>
 
-<div class="divider"></div>
-
-<!-- PROCESS -->
-<section>
-  <div class="section-label fade-in">How it works</div>
-  <h2 class="section-title fade-in">Four phases. Zero risk<br>beyond the audit fee.</h2>
-  <p class="section-sub fade-in">We do the analysis. You make the decisions. Savings are documented at 12 months — that's when our fee is calculated.</p>
-
-  <div class="process-grid fade-in">
-    <div class="process-card">
-      <div class="step-num">01</div>
-      <h3>Free preliminary screen</h3>
-      <p>Provide aggregate de-identified specialty drug claims. We confirm opportunity exists within 48 hours — no fee, no commitment.</p>
-    </div>
-    <div class="process-card">
-      <div class="step-num">02</div>
-      <h3>Audit & findings</h3>
-      <p>Full biosimilar mapping delivered in 14 business days. Every recommendation validated by a licensed PharmD. Flat fee: $2,500–$5,000.</p>
-    </div>
-    <div class="process-card">
-      <div class="step-num">03</div>
-      <h3>Implementation roadmap</h3>
-      <p>Benefit design language, PBM change request package, and member communication templates — ready for your next plan renewal.</p>
-    </div>
-    <div class="process-card">
-      <div class="step-num">04</div>
-      <h3>Savings documented</h3>
-      <p>At 12 months post-implementation, we compare claims to baseline. Our savings share fee (15–20%) is invoiced based on actual results.</p>
+  <!-- LAW ALERT -->
+  <div class="law-alert-wrap fi">
+    <div class="law-box">
+      <div class="law-tag"></div>
+      <h2 class="law-headline"></h2>
+      <p class="law-body-1"></p>
+      <p class="law-body-2"></p>
     </div>
   </div>
-</section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<!-- CONTACT -->
-<div class="contact-section" id="contact">
-  <div class="contact-inner">
-    <div class="contact-left fade-in">
-      <div class="section-label">Get started</div>
-      <h2>Request a free<br>preliminary screen</h2>
-      <p>Tell us a bit about your plan. We'll confirm whether a material biosimilar opportunity exists — at no cost and no commitment. Most screens are completed within 48 hours.</p>
-      <div class="contact-detail">
-        <div class="dot"></div>
-        <a href="mailto:hpratap@parityrx.com">hpratap@parityrx.com</a>
+  <!-- PROBLEM -->
+  <div id="problem" class="page-section">
+    <div class="section-label fi"></div>
+    <h2 class="section-title fi"></h2>
+    <p class="section-sub fi"></p>
+    <div class="problem-grid"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SERVICES -->
+  <div id="services" class="page-section">
+    <div class="section-label fi"></div>
+    <h2 class="section-title fi"></h2>
+    <p class="section-sub fi"></p>
+    <div class="services-grid"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- DRUG TABLE -->
+  <div id="drugs" class="full-section table-bg">
+    <div class="full-section-inner">
+      <div class="section-label fi"></div>
+      <h2 class="section-title fi"></h2>
+      <p class="section-sub fi"></p>
+      <div class="fi" style="overflow-x: auto;">
+        <table class="drug-table">
+          <thead>
+            <tr>
+              <th>Brand drug</th>
+              <th>Annual list price / member</th>
+              <th>FDA biosimilar</th>
+              <th>Annual list price / member</th>
+              <th>Potential savings</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Built by script.js -->
+          </tbody>
+        </table>
       </div>
-      <div class="contact-detail">
-        <div class="dot"></div>
-        <span>Minneapolis, MN</span>
-      </div>
-      <div class="contact-detail">
-        <div class="dot"></div>
-        <span>Serving self-insured employers & Taft-Hartley funds nationwide</span>
-      </div>
+      <p class="table-note fi"></p>
     </div>
-    <div class="fade-in">
-      <form class="contact-form" action="https://formspree.io/f/xykowelv" method="POST">
-        <div class="form-row">
-          <div class="form-group">
-            <label>First name</label>
-            <input type="text" name="first_name" placeholder="Jane" required>
+  </div>
+
+  <!-- PROCESS -->
+  <div id="process" class="page-section">
+    <div class="section-label fi"></div>
+    <h2 class="section-title fi"></h2>
+    <p class="section-sub fi"></p>
+    <div class="process-grid"></div>
+  </div>
+
+  <!-- SKIN FULL -->
+  <div class="full-section skin-full">
+    <div class="full-section-inner fi">
+      <h2></h2>
+      <p></p>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="contact" class="full-section" style="border-bottom: none;">
+    <div class="full-section-inner contact-grid">
+      <div class="contact-left fi">
+        <div class="section-label"></div>
+        <h2 class="section-title"></h2>
+        <p class="section-sub"></p>
+        <div class="c-detail">
+          <div class="c-dot"></div>
+          <a class="contact-email" href=""></a>
+        </div>
+        <div class="c-detail">
+          <div class="c-dot"></div>
+          <span class="contact-location"></span>
+        </div>
+        <div class="c-detail">
+          <div class="c-dot"></div>
+          <span class="contact-serving"></span>
+        </div>
+      </div>
+      <div class="fi">
+        <form class="contact-form" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First name</label>
+              <input type="text" name="first_name" placeholder="Jane" required>
+            </div>
+            <div class="form-group">
+              <label>Last name</label>
+              <input type="text" name="last_name" placeholder="Smith" required>
+            </div>
           </div>
           <div class="form-group">
-            <label>Last name</label>
-            <input type="text" name="last_name" placeholder="Smith" required>
+            <label>Work email</label>
+            <input type="email" name="email" placeholder="jane@company.com" required>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Work email</label>
-          <input type="email" name="email" placeholder="jane@company.com" required>
-        </div>
-        <div class="form-group">
-          <label>Organization</label>
-          <input type="text" name="organization" placeholder="Company or fund name">
-        </div>
-        <div class="form-group">
-          <label>Plan type</label>
-          <select name="plan_type">
-            <option value="">Select one</option>
-            <option>Self-insured employer</option>
-            <option>Taft-Hartley / multiemployer fund</option>
-            <option>Benefits broker / consultant</option>
-            <option>TPA / fund administrator</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Approximate covered lives</label>
-          <select name="covered_lives">
-            <option value="">Select range</option>
-            <option>200–500</option>
-            <option>500–1,000</option>
-            <option>1,000–5,000</option>
-            <option>5,000+</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Message (optional)</label>
-          <textarea name="message" placeholder="Any specific drugs or questions you'd like us to address..."></textarea>
-        </div>
-        <button type="submit" class="submit-btn">Request free screen →</button>
-      </form>
+          <div class="form-group">
+            <label>Organization</label>
+            <input type="text" name="organization" placeholder="Company or fund name">
+          </div>
+          <div class="form-group">
+            <label>Plan type</label>
+            <select name="plan_type">
+              <option value="">Select one</option>
+              <option>Self-insured employer</option>
+              <option>Taft-Hartley / multiemployer fund</option>
+              <option>Benefits broker / consultant</option>
+              <option>TPA / fund administrator</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Approximate covered lives</label>
+            <select name="covered_lives">
+              <option value="">Select range</option>
+              <option>200 to 500</option>
+              <option>500 to 1,000</option>
+              <option>1,000 to 5,000</option>
+              <option>5,000+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message (optional)</label>
+            <textarea name="message" placeholder="Any specific drugs, questions, or context you would like to share..."></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Request free screen</button>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="logo-sm">Parity<span>Rx</span></div>
-  <p>ParityRx provides informational analysis only and does not constitute medical, legal, or fiduciary advice. Data sourced from FDA Purple Book, CMS NADAC, and Medicare ASP files. Individual plan results will vary. © 2025 ParityRx LLC, Minneapolis MN.</p>
-</footer>
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-logo"></div>
+    <p>ParityRx provides informational analysis only and does not constitute medical, legal, or fiduciary advice. Data sourced from FDA Purple Book, CMS NADAC, and Medicare ASP files. List prices shown. Individual plan results will vary. &copy; 2026 ParityRx LLC, Minneapolis MN.</p>
+  </footer>
 
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
+  <!-- Script loads last so HTML exists before JS runs -->
+  <script src="script.js"></script>
 
 </body>
 </html>
